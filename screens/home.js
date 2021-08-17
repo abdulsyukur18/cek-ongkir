@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { endPoint, headers } from '../config/key'
-import { useNavigation } from '@react-navigation/native'
 import { View, StyleSheet, Image } from 'react-native'
-import { Button, Surface, Title, TextInput, HelperText } from 'react-native-paper'
+import { Button, Surface, Title, TextInput } from 'react-native-paper'
 import theme from '../config/theme'
 import DropDown from 'react-native-paper-dropdown'
 
 
-export default function HomeScreen() {
 
-  const navigation = useNavigation()
+export default function HomeScreen({ navigation }) {
 
-  const [issubmit, setSubmit] = useState(false)
-  const [error, setError] = useState({})
 
   //open dropdown
   const [showProvOri, setShowProvOri] = useState(false)
@@ -114,10 +110,18 @@ export default function HomeScreen() {
     getCityDesByProviId()
   }, [provDes])
 
+
   const send = () => {
-    let data = {}
-    navigation.navigate('Result')
+    const props = {
+      weight: weight,
+      courir: courir,
+      destination: cityDes.city_id,
+      origin: cityOri.city_id
+    }
+    navigation.navigate('Result', { props })
+
   }
+
 
   return (
     <View style={styles.container}>
@@ -202,15 +206,10 @@ export default function HomeScreen() {
           placeholder="Enter Value"
           value={weight}
           onChangeText={changeWeight}
-          error={error.weight ? true : false}
 
           right={<TextInput.Icon name="weight-gram" />}
         />
-        <HelperText
-          type='error'
-          visible={error.weight ? true : false}>
-          {error.weight}
-        </HelperText>
+
         <Button
           style={styles.button}
           mode='contained'
