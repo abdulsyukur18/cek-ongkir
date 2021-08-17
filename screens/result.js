@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
-// import NumberFormat from 'react-number-format'
 import theme from '../config/theme'
 import { Avatar, Button, Card, Text } from 'react-native-paper'
 import { endPoint, headers } from '../config/key'
